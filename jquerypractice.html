@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>JQuery Events</title>
+
+	<style>
+		#divAlert, #divSpan {
+			border: 2px solid black;
+			margin: 5px 0px;
+		}
+	</style>
+
+</head>
+<body>
+	<button id="button1">Button-1</button>
+	<button id="button2">Button-2</button>
+	<button id="button3">Button-3</button>
+	<button class="button4">Button-Class 1</button>
+	<button class="button4">Button-Class 2</button>
+	<div id="divAlert"></div>
+	<div id="divSpan"></div>
+	<span>Mouse: </span>
+	<br>
+	<a href="http://modulemedia.com">Link to ModuleMedia</a>
+	<br>
+	<div id="size"></div>
+	<br>
+	Background Changing TextBox: <input type="text" name="bg" id="bg">s
+	<br> <br>
+	<form>
+		Name: <input type="text" name="name" id="name">
+		Email: <input type="email" name="email" id="email">
+		<button type="submit">Submit</button>
+	</form>
+
+	<script src="./vectacorp/node_modules/jquery/dist/jquery.min.js"></script>
+	<script>
+	
+		// Step 16
+		$("#button1").click(function () {
+			window.alert("You just clicked a 1 st button!");
+		})
+		// Step 17
+		$("#button2").bind("click", function () {
+			window.alert("You just clicked a 2 nd button!");
+		})
+		// Step 18
+		$("#button3").on("click", function () {
+			window.alert("You just clicked a 3 rd button!");
+		})
+		// Step 19
+		$(".button4").on("click", function () {
+			alert("Button - Class button is clicked...");
+		})
+		// Step 20
+		$("#divAlert").height("400px");
+		$("#divAlert").width("400px");
+		$("#divAlert").on("mouseenter", function () {
+			alert("Mouse entered...");
+		})
+		$("#divAlert").on("mouseleave", function () {
+			alert("Mouse left...");
+		})
+		$("#divAlert").on("click", function () {
+			alert("Mouse clicked...");
+		})
+		// Step 21
+		$("#divSpan").height("400px");
+		$("#divSpan").width("400px");
+		$("#divSpan").on("mouseenter", function () {
+			$("span").text("Mouse:entered");
+		})
+		$("#divSpan").on("mouseleave", function () {
+			$("span").text("Mouse:left");
+		})
+		$("#divSpan").on("click", function () {
+			$("span").text("Mouse:clicked");
+		})
+		// Step 22
+		$("a").click(function (e) {
+			e.preventDefault();
+			$(this).css("color", "red");
+			window.alert("https://www.modulemedia.com/");
+		})
+	
+		// Step 23
+		function resized() {
+			$("#size").html("Width: " + $(window).width() + " Height: " + $(window).height());		
+		}
+		resized();
+		$(window).resize(resized);
+		// Step 24
+		$("input#bg").on("focus", function () {
+			$(this).css("background-color", "grey");
+		})
+		$("input#bg").on("blur", function () {
+			$(this).css("background-color", "white");
+		})
+		// Step 25
+		$("form").on("submit", function (e) {
+			e.preventDefault();
+			var val = $(this).serializeArray();
+            var str = ""
+			for (let i = 0; i < val.length; i++) {
+				const el = val[i];
+				if (el.value == "") {
+					$("input[name='" + el.name + "']").css("border", "2px solid red");
+					str += el.name + ",";
+				} else {
+					$("input[name='" + el.name + "']").css("border", "none");
+				}
+			}
+			if(str.length > 0) alert(str.substring(0, str.length - 1) + " is required");
+			else $("form input").css("border", "2px solid green");
+		})
+    </script>
+    <style>
+		#email,#name,#bg {
+			border: 2px solid black;
+			margin: 5px 0px;
+		}
+	</style>
+</body>
+</html>
